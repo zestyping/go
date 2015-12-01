@@ -1,0 +1,16 @@
+body, input { font-family: helvetica, arial; font-size: 16px; }
+body { margin: 1em 2em; position: relative; }
+.corner { position: absolute; top: 0; right: 0; }
+h1 { font-size: 32px; font-weight: normal; }
+a:link { text-decoration: none; }
+a:link:hover { text-decoration: underline; }
+div, table { margin: 0 0 1em; }
+th { text-align: left; font-weight: normal; opacity: 0.5; }
+table.links th, table.links td { padding: 0 1em 0.5em 0; white-space: nowrap; }
+td.count { text-align: right; }
+td.url { max-width: 40em; overflow: hidden; text-overflow: ellipsis; }
+.arrow { font-size: 36px; position: relative; top: -2px; }
+input { margin: 0; }
+pre { font-family: helvetica, arial; opacity: 0.5; }
+.tip { font-size: 12px; opacity: 0.5; }
+#help { display: none; padding: 1em; max-width: 40em; border: 1px solid grey; }

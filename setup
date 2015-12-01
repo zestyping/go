@@ -1,0 +1,4 @@
+#!/usr/bin/env python
+
+import data
+data.reset_app()
