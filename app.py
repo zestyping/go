@@ -21,6 +21,14 @@ def show_exception(e):
     return make_error_response(''.join(
         traceback.format_exception(type(e), e, e.__traceback__)))
 
+@app.route("/.well-known/acme-challenge/<token>")
+def acme(token):
+    """Proves to Letsencrypt that we own the domain go.wave.com."""
+    key = find_acme_key(token)
+    if key is None:
+        abort(404)
+    return key
+
 @app.route('/')
 def root():
     """SHows a directory of all existing links."""
@@ -154,6 +162,16 @@ def normalize(name):
 def stylesheet():
     return app.send_static_file('style.css')
 
+
+def find_acme_key(token):
+    import os
+    if token == os.environ.get("ACME_TOKEN"):
+        return os.environ.get("ACME_KEY")
+    for k, v in os.environ.items():
+        if v == token and k.startswith("ACME_TOKEN_"):
+            n = k.replace("ACME_TOKEN_", "")
+            return os.environ.get("ACME_KEY_{}".format(n))
+
 def make_error_response(message):
     """Makes a nice error page."""
     return Response(format_html('''
@@ -168,4 +186,3 @@ def format_html(template, **kwargs):
     """Like format(), but HTML-escapes all the parameters."""
     return template.format(
         **{key: html.escape(str(value)) for key, value in kwargs.items()})
-
